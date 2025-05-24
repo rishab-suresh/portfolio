@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { fadeInUp } from './shared/animations';
 
 const ROLES = ["SDE", "Front End Developer"];
 
@@ -20,18 +21,17 @@ export default function RoleLoop() {
   useEffect(() => {
     const handleTyping = () => {
       const currentRole = ROLES[loopNum % ROLES.length];
-      const shouldDelete = isDeleting;
       
-      setText(shouldDelete
+      setText(isDeleting
         ? currentRole.substring(0, text.length - 1)
         : currentRole.substring(0, text.length + 1)
       );
 
-      setTypingSpeed(shouldDelete ? TIMING.DELETE_SPEED : TIMING.TYPE_SPEED);
+      setTypingSpeed(isDeleting ? TIMING.DELETE_SPEED : TIMING.TYPE_SPEED);
 
-      if (!shouldDelete && text === currentRole) {
+      if (!isDeleting && text === currentRole) {
         setTimeout(() => setIsDeleting(true), TIMING.PAUSE_FULL);
-      } else if (shouldDelete && text === '') {
+      } else if (isDeleting && text === '') {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
         setTimeout(() => {}, TIMING.PAUSE_EMPTY);
@@ -43,11 +43,12 @@ export default function RoleLoop() {
   }, [text, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <div className="relative h-8 sm:h-10 md:h-12 flex items-center justify-center">
+    <div className="relative h-8 sm:h-10 md:h-12 flex items-center">
       <motion.span
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: TIMING.INITIAL_DELAY }}
+        variants={fadeInUp}
+        initial="hidden"
+        animate="visible"
+        transition={{ delay: TIMING.INITIAL_DELAY / 1000 }}
         className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-slate-800 dark:text-slate-200"
       >
         {text}

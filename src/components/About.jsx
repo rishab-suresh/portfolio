@@ -1,26 +1,6 @@
 import { motion } from 'framer-motion';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1]
-    }
-  }
-};
+import BackgroundPattern from './shared/BackgroundPattern';
+import { containerVariants, itemVariants } from './shared/animations';
 
 const skills = [
   { name: 'Next.js', color: 'from-black to-gray-800', learning: false },
@@ -67,8 +47,7 @@ const personalInfo = [
 export default function About() {
   return (
     <section id="about" className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-900 dark:to-slate-800 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] opacity-50"></div>
+      <BackgroundPattern />
 
       <div className="section-container relative z-10 px-4 sm:px-6 lg:px-8">
         <motion.div

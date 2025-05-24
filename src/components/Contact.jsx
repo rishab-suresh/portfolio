@@ -1,30 +1,10 @@
 import { motion } from 'framer-motion';
 import CustomButton from './shared/CustomButton';
+import BackgroundPattern from './shared/BackgroundPattern';
+import { containerVariants, itemVariants } from './shared/animations';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-};
 
 const CONTACT_INFO = {
   email: {
@@ -83,7 +63,7 @@ const ContactInfoItem = ({ icon, label, value, href }) => (
   </div>
 );
 
-const SocialButton = ({ icon, label, href, variant, className, size }) => (
+const SocialButton = ({ icon, label, href, variant, className }) => (
   <CustomButton
     href={href}
     target="_blank"
@@ -95,7 +75,6 @@ const SocialButton = ({ icon, label, href, variant, className, size }) => (
         {icon}
       </span>
     }
-    size={size}
   >
     <span className="text-sm sm:text-base">{label}</span>
   </CustomButton>
@@ -104,8 +83,7 @@ const SocialButton = ({ icon, label, href, variant, className, size }) => (
 export default function Contact() {
   return (
     <section id="contact" className="min-h-screen bg-gradient-to-br from-green-50 to-teal-100 dark:from-gray-800 dark:to-teal-900 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] opacity-50"></div>
+      <BackgroundPattern />
 
       <div className="section-container relative z-10 px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -157,8 +135,7 @@ export default function Contact() {
                   {SOCIAL_LINKS.map((link) => (
                     <SocialButton 
                       key={link.label} 
-                      {...link} 
-                      size="medium"
+                      {...link}
                     />
                   ))}
                 </div>

@@ -1,51 +1,8 @@
 import { motion } from 'framer-motion';
 import CustomButton from './shared/CustomButton';
 import RoleLoop from './RoleLoop';
-import { useTheme } from '../context/ThemeContext';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.3 }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-};
-
-const techStack = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'];
-
-const ThemeToggleButton = ({ theme, toggleTheme }) => (
-  <motion.button
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-    onClick={toggleTheme}
-    className="fixed top-4 right-4 z-30 p-2 sm:p-3 rounded-full bg-opacity-20 backdrop-blur-sm transition-colors duration-300"
-    style={{ backgroundColor: theme.colors.primary + '20' }}
-  >
-    {theme.name === 'dark' ? (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke={theme.colors.text}>
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-    ) : (
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke={theme.colors.text}>
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-      </svg>
-    )}
-  </motion.button>
-);
+import ThemeToggle from './shared/ThemeToggle';
+import { staggerContainer, fadeInUp } from './shared/animations';
 
 const TechStackItem = ({ tech, index }) => (
   <motion.span
@@ -60,23 +17,23 @@ const TechStackItem = ({ tech, index }) => (
 );
 
 export default function Hero() {
-  const { theme, toggleTheme } = useTheme();
+  const techStack = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'];
 
   return (
-    <section className={`min-h-screen flex flex-col items-start justify-center relative overflow-hidden w-full transition-colors duration-300 ${theme.name === 'dark' ? 'bg-black' : 'bg-white'}`}>
-      <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
+    <section className="min-h-screen flex flex-col items-start justify-center relative overflow-hidden w-full transition-colors duration-300 bg-white dark:bg-black">
+      <ThemeToggle />
 
       <motion.div 
-        variants={containerVariants}
+        variants={staggerContainer}
         initial="hidden"
         animate="visible"
         className="text-left flex flex-col p-6 sm:p-8 md:p-16 lg:p-24 relative z-20 w-full"
       >
-        <motion.div variants={itemVariants} className="space-y-3 sm:space-y-4">
-          <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold transition-colors duration-300 ${theme.name === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+        <motion.div variants={fadeInUp} className="space-y-3 sm:space-y-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold transition-colors duration-300 text-gray-800 dark:text-white">
             Hi, I'm{" "}
             <motion.span 
-              style={{ color: theme.colors.primary }}
+              className="text-blue-600 dark:text-blue-400"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
@@ -84,12 +41,12 @@ export default function Hero() {
             </motion.span>
           </h1>
           
-          <div className={`h-10 sm:h-12 pb-8 sm:pb-12 text-xl sm:text-2xl md:text-3xl transition-colors duration-300 ${theme.name === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+          <div className="h-10 sm:h-12 pb-8 sm:pb-12 text-xl sm:text-2xl md:text-3xl text-gray-800 dark:text-white">
             <RoleLoop />
           </div>
           
           <motion.p 
-            variants={itemVariants}
+            variants={fadeInUp}
             className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl"
           >
             Crafting beautiful, performant, and user-friendly web experiences with modern front-end technologies.
@@ -98,7 +55,7 @@ export default function Hero() {
         </motion.div>
         
         <motion.div 
-          variants={itemVariants}
+          variants={fadeInUp}
           className="pt-8 sm:pt-12 flex flex-col sm:flex-row gap-3 sm:gap-4"
         >
           <CustomButton 
@@ -119,10 +76,9 @@ export default function Hero() {
         </motion.div>
 
         <motion.div 
-          variants={itemVariants}
-          className="mt-8 sm:mt-12 flex flex-wrap gap-2 sm:gap-4 items-center"
+          variants={fadeInUp}
+          className="flex flex-wrap gap-2 sm:gap-3 mt-8 sm:mt-12"
         >
-          <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Tech Stack:</span>
           {techStack.map((tech, index) => (
             <TechStackItem key={tech} tech={tech} index={index} />
           ))}

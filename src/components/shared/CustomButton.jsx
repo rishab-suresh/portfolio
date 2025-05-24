@@ -14,7 +14,7 @@ const buttonStyles = {
   },
 };
 
-const StyledButton = styled(Button)(({ theme }) => buttonStyles);
+const StyledButton = styled(Button)(({  }) => buttonStyles);
 
 const CustomButton = ({ 
   children, 
