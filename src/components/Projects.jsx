@@ -12,7 +12,9 @@ const PROJECTS = [
     link: "https://www.specterapp.xyz/"
   },
   {
-    title: "Tesla Cone Website",
+    title: "Tesla Clone Website",
+    type: "Project",
+
     description: "Made this because I was bored and wanted to see if I still had the dog in me. I used React, Next.js, and Tailwind CSS to create this website.",
     technologies: ["TypeScript", "React", "Tailwind", "Mobile Responsiveness", "CSS"],
     link: "https://tesla-clone-iota-seven.vercel.app/"
@@ -23,6 +25,21 @@ const PROJECTS = [
     technologies: ["React", "Firebase", "Redux", "Material-UI"],
     type: "Company Project",
     link: "https://rmc-dashboard.vercel.app/"
+  },
+  {
+    title: "Spotify Vinyl Player (Front End Only)",
+    type: "Project",
+
+    description: " A Fun Project I made by Establishing auth with Spotify using PKCE and ClientIDs and Playing music realtime with Skeumorphoc components "    ,
+    technologies: ["TypeScript", "React", "Skeumorphism", "CSS"],
+    link: "https://vinyl-spotify.vercel.app/"
+  },
+  {
+    title: "Spotify Vinyl Player (Full stack)",
+    type: "Project",
+    description: " Same thing but I initially built it with fast api and python, having client id and secret key stored as an env creating a server instance and then connecting the auth  ̰"    ,
+    technologies: ["TypeScript", "React", "Skeumorphism", "CSS","Python","FastAPI"],
+    link: "https://github.com/rishab-suresh/VinylSpotify/tree/backend-version-demo"
   }
 ];
 
