@@ -1,88 +1,69 @@
 import { motion } from 'framer-motion';
-import CustomButton from './shared/CustomButton';
 import RoleLoop from './RoleLoop';
 import ThemeToggle from './shared/ThemeToggle';
 import { staggerContainer, fadeInUp } from './shared/animations';
 
-const TechStackItem = ({ tech, index }) => (
-  <motion.span
-    key={tech}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.1 }}
-    className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300"
-  >
-    {tech}
-  </motion.span>
-);
+const TECH = ['React', 'TypeScript', 'Three.js', 'R3F', 'Next.js'];
 
 export default function Hero() {
-  const techStack = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'];
-
   return (
-    <section className="min-h-screen flex flex-col items-start justify-center relative overflow-hidden w-full transition-colors duration-300 bg-white dark:bg-black">
+    <section className="relative flex min-h-screen flex-col justify-end overflow-hidden">
       <ThemeToggle />
+      <div className="hero-grid" aria-hidden="true" />
 
-      <motion.div 
+      <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="text-left flex flex-col p-6 sm:p-8 md:p-16 lg:p-24 relative z-20 w-full"
+        className="section-container relative z-10 !pb-16 !pt-28 md:!pb-24"
       >
-        <motion.div variants={fadeInUp} className="space-y-3 sm:space-y-4">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold transition-colors duration-300 text-gray-800 dark:text-white">
-            Hi, I'm{" "}
-            <motion.span 
-              className="text-blue-600 dark:text-blue-400"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              Rishab Suresh
-            </motion.span>
-          </h1>
-          
-          <div className="h-10 sm:h-12 pb-8 sm:pb-12 text-xl sm:text-2xl md:text-3xl text-gray-800 dark:text-white">
-            <RoleLoop />
-          </div>
-          
-          <motion.p 
-            variants={fadeInUp}
-            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl"
-          >
-            Crafting beautiful, performant, and user-friendly web experiences with modern front-end technologies.
-            Specializing in Next.js, TypeScript, and React.
-          </motion.p>
-        </motion.div>
-        
-        <motion.div 
+        <motion.p variants={fadeInUp} className="section-label">
+          Bengaluru · Frontend
+        </motion.p>
+        <div className="accent-rule mt-5" aria-hidden="true" />
+
+        <motion.h1
           variants={fadeInUp}
-          className="pt-8 sm:pt-12 flex flex-col sm:flex-row gap-3 sm:gap-4"
+          className="mt-8 font-display font-extrabold tracking-tight"
+          style={{
+            fontSize: 'clamp(4.25rem, 14vw, 9.5rem)',
+            lineHeight: 0.84,
+            color: 'var(--fg)',
+          }}
         >
-          <CustomButton 
-            href="#projects" 
-            size="large"
-            className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8"
-          >
-            View My Work
-          </CustomButton>
-          <CustomButton 
-            variant="outlined" 
-            href="#contact" 
-            size="large"
-            className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8"
-          >
-            Let's Connect
-          </CustomButton>
+          Rishab
+          <br />
+          <span style={{ color: 'var(--accent)' }}>Suresh</span>
+        </motion.h1>
+
+        <motion.div variants={fadeInUp} className="mt-8 min-h-[1.75rem]">
+          <RoleLoop />
         </motion.div>
 
-        <motion.div 
+        <motion.p
           variants={fadeInUp}
-          className="flex flex-wrap gap-2 sm:gap-3 mt-8 sm:mt-12"
+          className="mt-6 max-w-xl text-base leading-relaxed md:text-lg"
+          style={{ color: 'var(--fg-muted)' }}
         >
-          {techStack.map((tech, index) => (
-            <TechStackItem key={tech} tech={tech} index={index} />
-          ))}
+          Production React by day. Three.js / R3F and game-feel experiments by night. Obsessed with how interfaces look, move, and hold up under load.
+        </motion.p>
+
+        <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap gap-3">
+          <a href="#projects" className="btn">
+            View work <span aria-hidden="true">→</span>
+          </a>
+          <a href="#contact" className="btn btn-outline">
+            Let&apos;s talk
+          </a>
         </motion.div>
+
+        <motion.p
+          variants={fadeInUp}
+          className="mt-10 font-mono text-xs tracking-wide sm:text-sm"
+          style={{ color: 'var(--fg-muted)' }}
+        >
+          {TECH.join(' · ')}
+        </motion.p>
       </motion.div>
     </section>
   );

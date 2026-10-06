@@ -63,14 +63,17 @@ export default function Fin() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
           >
-            <span className="text-lg font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap">
+            <span
+              className="whitespace-nowrap font-mono text-sm tracking-wide"
+              style={{ color: 'var(--fg)' }}
+            >
               {isHovered ? "Back to Top" : "Fin"}
             </span>
           </motion.div>
 
           <motion.div
-            className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-3 border-white dark:border-slate-700 shadow-xl cursor-pointer"
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="h-16 w-16 cursor-pointer overflow-hidden rounded-full border md:h-20 md:w-20"
+            style={{ borderColor: 'var(--line)', background: 'var(--bg-elevated)' }}
           >
             <AnimatePresence initial={false} mode="wait">
               <motion.img

@@ -4,20 +4,24 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      animation: {
-        'bounce': 'bounce 1s infinite',
-        'blink': 'blink 1s step-end infinite',
+      fontFamily: {
+        display: ['Syne', 'sans-serif'],
+        sans: ['Outfit', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
       },
-      keyframes: {
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        }
-      }
+      colors: {
+        ink: '#0b0d0c',
+        foam: '#eef1ec',
+        ember: {
+          DEFAULT: '#e85d04',
+          soft: '#ff8a3d',
+        },
+        acid: '#c6f23a',
+      },
     },
   },
   plugins: [],
-  darkMode: 'class',
-} 
+}

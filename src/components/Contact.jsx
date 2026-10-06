@@ -1,149 +1,74 @@
 import { motion } from 'framer-motion';
-import CustomButton from './shared/CustomButton';
-import BackgroundPattern from './shared/BackgroundPattern';
 import { containerVariants, itemVariants } from './shared/animations';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import EmailIcon from '@mui/icons-material/Email';
 
-const CONTACT_INFO = {
-  email: {
-    icon: 'email',
+const LINKS = [
+  {
     label: 'Email',
     value: 'sureshrishab6@gmail.com',
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=sureshrishab6@gmail.com&su=Let's Connect&body=Hi Rishab,"
-  }
-};
-
-const SOCIAL_LINKS = [
-  {
-    icon: <EmailIcon />,
-    label: 'Send me an email',
-    href: CONTACT_INFO.email.href,
-    className: 'justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white'
+    href: 'mailto:sureshrishab6@gmail.com',
   },
   {
-    icon: <LinkedInIcon />,
-    label: 'Connect on LinkedIn',
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/rishab-suresh',
     href: 'https://linkedin.com/in/rishab-suresh-a3a632191/',
-    variant: 'outlined',
-    className: 'justify-center gap-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20'
   },
   {
-    icon: <GitHubIcon />,
-    label: 'Check my GitHub',
+    label: 'GitHub',
+    value: 'github.com/rishab-suresh',
     href: 'https://github.com/rishab-suresh',
-    variant: 'outlined',
-    className: 'justify-center gap-2 border-gray-500 text-gray-600 hover:bg-gray-50 dark:border-gray-400 dark:text-gray-400 dark:hover:bg-gray-900/20'
-  }
+  },
 ];
-
-const ContactInfoItem = ({ icon, label, value, href }) => (
-  <div className="flex items-center gap-3 sm:gap-4 group">
-    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform duration-300">
-      {icon}
-    </div>
-    <div>
-      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      {href ? (
-        <a 
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm sm:text-base text-gray-800 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
-        >
-          {value}
-        </a>
-      ) : (
-        <p className="text-sm sm:text-base text-gray-800 dark:text-white">
-          {value}
-        </p>
-      )}
-    </div>
-  </div>
-);
-
-const SocialButton = ({ icon, label, href, variant, className }) => (
-  <CustomButton
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    variant={variant}
-    className={`${className} w-full sm:w-auto px-4 sm:px-6`}
-    startIcon={
-      <span className="flex items-center text-lg sm:text-xl">
-        {icon}
-      </span>
-    }
-  >
-    <span className="text-sm sm:text-base">{label}</span>
-  </CustomButton>
-);
 
 export default function Contact() {
   return (
-    <section id="contact" className="min-h-screen bg-gradient-to-br from-green-50 to-teal-100 dark:from-gray-800 dark:to-teal-900 relative overflow-hidden">
-      <BackgroundPattern />
-
-      <div className="section-container relative z-10 px-4 sm:px-6 lg:px-8">
+    <section id="contact">
+      <div className="section-container">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="max-w-4xl mx-auto"
+          viewport={{ once: true, margin: '-80px' }}
+          className="max-w-3xl"
         >
-          <motion.div variants={itemVariants} className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600 dark:from-green-400 dark:to-teal-400 inline-block">
-              Get In Touch
-            </h2>
-            <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-green-500 to-teal-500 mx-auto mt-3 sm:mt-4 rounded-full"></div>
-          </motion.div>
-
-          <motion.div 
+          <motion.p variants={itemVariants} className="section-label">
+            Contact
+          </motion.p>
+          <motion.h2 variants={itemVariants} className="section-title mt-4">
+            Let&apos;s talk
+          </motion.h2>
+          <div className="accent-rule mt-6" aria-hidden="true" />
+          <motion.p
             variants={itemVariants}
-            className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 border border-green-100 dark:border-green-900 shadow-xl"
+            className="mt-8 max-w-lg text-base leading-relaxed md:text-lg"
+            style={{ color: 'var(--fg-muted)' }}
           >
-            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-              {/* Left Column - Contact Info */}
-              <div className="space-y-4 sm:space-y-6">
-                <div className="space-y-3 sm:space-y-4">
-                  <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white">
-                    Let's Connect
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
-                    I'm currently open to new opportunities and collaborations.
-                    Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                  </p>
-                </div>
+            Open to roles and collabs where frontend craft and interactive 3D matter.
+          </motion.p>
 
-                <div className="space-y-4">
-                  <ContactInfoItem 
-                    icon={<EmailIcon />}
-                    label={CONTACT_INFO.email.label}
-                    value={CONTACT_INFO.email.value}
-                  />
-                </div>
-              </div>
-
-              {/* Right Column - Social Links */}
-              <div className="space-y-4 sm:space-y-6">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">
-                  Connect with me
-                </h3>
-                <div className="flex flex-col gap-3 sm:gap-4">
-                  {SOCIAL_LINKS.map((link) => (
-                    <SocialButton 
-                      key={link.label} 
-                      {...link}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="mt-12">
+            {LINKS.map((link) => (
+              <motion.a
+                key={link.label}
+                variants={itemVariants}
+                href={link.href}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="group grid gap-1 border-t py-6 hairline transition-colors duration-200 last:border-b sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-6"
+              >
+                <span className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: 'var(--fg-muted)' }}>
+                  {link.label}
+                </span>
+                <span className="text-lg transition-colors duration-200 group-hover:text-[var(--accent)] md:text-xl">
+                  {link.value}
+                </span>
+                <span className="font-mono text-sm" style={{ color: 'var(--accent)' }} aria-hidden="true">
+                  ↗
+                </span>
+              </motion.a>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
   );
-} 
+}

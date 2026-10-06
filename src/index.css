@@ -2,20 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #eef1ec;
+  --bg-elevated: #f7f8f5;
+  --fg: #0b0d0c;
+  --fg-muted: #5c675f;
+  --line: rgba(11, 13, 12, 0.12);
+  --accent: #e85d04;
+  --accent-soft: rgba(232, 93, 4, 0.12);
+  --wash-a: rgba(198, 242, 58, 0.18);
+  --wash-b: rgba(232, 93, 4, 0.1);
+}
+
+.dark {
+  --bg: #0b0d0c;
+  --bg-elevated: #151a17;
+  --fg: #eef1ec;
+  --fg-muted: #8a938c;
+  --line: rgba(238, 241, 236, 0.1);
+  --accent: #ff8a3d;
+  --accent-soft: rgba(255, 138, 61, 0.14);
+  --wash-a: rgba(198, 242, 58, 0.08);
+  --wash-b: rgba(232, 93, 4, 0.12);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--bg);
+    color: var(--fg);
+    min-height: 100%;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 45% at 8% -8%, var(--wash-a), transparent 58%),
+      radial-gradient(ellipse 55% 40% at 100% 8%, var(--wash-b), transparent 52%);
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 }
 
 @layer components {
   .section-container {
-    @apply container mx-auto px-4 py-16 md:py-24;
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10 py-20 md:py-28;
   }
-  
-  .heading {
-    @apply text-4xl md:text-5xl font-bold mb-12 text-gray-800 dark:text-white;
+
+  .section-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em];
+    color: var(--fg-muted);
+  }
+
+  .section-title {
+    @apply font-display font-bold tracking-tight;
+    color: var(--fg);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 0.95;
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .surface {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+  }
+
+  .accent-rule {
+    height: 2px;
+    width: 4.5rem;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide transition-colors duration-200;
+    background: var(--accent);
+    color: #0b0d0c;
+  }
+
+  .btn:hover {
+    filter: brightness(1.08);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--line);
+  }
+
+  .btn-outline:hover {
+    filter: none;
+    border-color: var(--accent);
+    color: var(--accent);
   }
 }
 
-
+.hero-grid {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to top, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 78%);
+}

@@ -1,63 +1,55 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { fadeInUp } from './shared/animations';
 
-const ROLES = ["SDE", "Front End Developer"];
+const ROLES = ['SE2 @ Zensible', 'React + TypeScript', 'Three.js / R3F'];
 
 const TIMING = {
-  TYPE_SPEED: 100,    // ms per letter
-  DELETE_SPEED: 50,   // ms per letter
-  PAUSE_FULL: 2000,   // ms to pause at full text
-  PAUSE_EMPTY: 500,   // ms to pause at empty
-  INITIAL_DELAY: 1000 // ms before starting
+  TYPE_SPEED: 70,
+  DELETE_SPEED: 36,
+  PAUSE_FULL: 1800,
+  PAUSE_EMPTY: 400,
 };
 
 export default function RoleLoop() {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(TIMING.TYPE_SPEED);
 
   useEffect(() => {
-    const handleTyping = () => {
-      const currentRole = ROLES[loopNum % ROLES.length];
-      
-      setText(isDeleting
-        ? currentRole.substring(0, text.length - 1)
-        : currentRole.substring(0, text.length + 1)
-      );
+    const currentRole = ROLES[loopNum % ROLES.length];
+    const speed = isDeleting ? TIMING.DELETE_SPEED : TIMING.TYPE_SPEED;
 
-      setTypingSpeed(isDeleting ? TIMING.DELETE_SPEED : TIMING.TYPE_SPEED);
-
+    const timer = setTimeout(() => {
       if (!isDeleting && text === currentRole) {
         setTimeout(() => setIsDeleting(true), TIMING.PAUSE_FULL);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-        setTimeout(() => {}, TIMING.PAUSE_EMPTY);
+        return;
       }
-    };
 
-    const timer = setTimeout(handleTyping, typingSpeed);
+      if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum((n) => n + 1);
+        return;
+      }
+
+      setText(
+        isDeleting
+          ? currentRole.substring(0, text.length - 1)
+          : currentRole.substring(0, text.length + 1)
+      );
+    }, text === '' && !isDeleting ? TIMING.PAUSE_EMPTY : speed);
+
     return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed]);
+  }, [text, isDeleting, loopNum]);
 
   return (
-    <div className="relative h-8 sm:h-10 md:h-12 flex items-center">
-      <motion.span
-        variants={fadeInUp}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: TIMING.INITIAL_DELAY / 1000 }}
-        className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-slate-800 dark:text-slate-200"
-      >
-        {text}
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-          className="inline-block w-0.5 sm:w-1 h-4 sm:h-6 md:h-8 bg-blue-500 ml-1 sm:ml-2"
-        />
-      </motion.span>
+    <div>
+      <p className="sr-only">{ROLES.join('. ')}</p>
+      <p className="font-mono text-sm sm:text-base md:text-lg" style={{ color: 'var(--fg)' }} aria-hidden="true">
+      <span>{text}</span>
+      <span
+        className="ml-1 inline-block h-[1em] w-[2px] align-[-0.1em] animate-pulse"
+        style={{ background: 'var(--accent)' }}
+      />
+      </p>
     </div>
   );
-} 
+}
